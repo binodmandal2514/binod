@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Binod Mandal — Portfolio</title>
+<meta name="description" content="Binod Mandal — M.Tech Wireless Networks &amp; Applications, Full Stack Developer, CTF Competitor.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0D1B1E;
+    --surface: #122327;
+    --surface-2: #16282C;
+    --line: #23383D;
+    --text: #EAF2F0;
+    --text-dim: #9FB4B0;
+    --text-faint: #6C817D;
+    --amber: #E8A33D;
+    --amber-dim: #7A5B27;
+    --teal: #4FD1C5;
+    --teal-dim: #1E4D48;
+    --radius: 4px;
+    --disp: 'Space Grotesk', sans-serif;
+    --mono: 'IBM Plex Mono', monospace;
+    --body: 'Inter', sans-serif;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--body);
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  a{color:inherit; text-decoration:none;}
+  ::selection{background:var(--amber); color:var(--bg);}
+
+  /* focus visibility */
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--teal);
+    outline-offset:3px;
+  }
+
+  .wrap{
+    max-width:900px;
+    margin:0 auto;
+    padding:0 28px;
+  }
+
+  /* ---------- background signal texture ---------- */
+  .signal-bg{
+    position:fixed;
+    inset:0;
+    z-index:0;
+    pointer-events:none;
+    opacity:0.55;
+  }
+
+  /* ---------- nav ---------- */
+  header{
+    position:sticky;
+    top:0;
+    z-index:50;
+    backdrop-filter:blur(10px);
+    background:rgba(13,27,30,0.75);
+    border-bottom:1px solid var(--line);
+  }
+  nav{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:18px 28px;
+    max-width:900px;
+    margin:0 auto;
+  }
+  .logo{
+    font-family:var(--mono);
+    font-size:14px;
+    letter-spacing:0.5px;
+    color:var(--teal);
+  }
+  .logo span{color:var(--text-faint);}
+  .navlinks{
+    display:flex;
+    gap:28px;
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--text-dim);
+  }
+  .navlinks a{
+    position:relative;
+    padding:4px 0;
+    transition:color .2s ease;
+  }
+  .navlinks a:hover{color:var(--amber);}
+  @media (max-width:640px){
+    .navlinks{gap:16px; font-size:11px;}
+  }
+
+  /* ---------- hero ---------- */
+  .hero{
+    position:relative;
+    min-height:92vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    padding-top:60px;
+    z-index:1;
+  }
+  .hero-eyebrow{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--teal);
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    margin-bottom:22px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .pulse-dot{
+    width:8px; height:8px;
+    border-radius:50%;
+    background:var(--teal);
+    box-shadow:0 0 0 0 rgba(79,209,197,0.6);
+    animation:pulse 2.2s infinite;
+  }
+  @keyframes pulse{
+    0%{box-shadow:0 0 0 0 rgba(79,209,197,0.55);}
+    70%{box-shadow:0 0 0 12px rgba(79,209,197,0);}
+    100%{box-shadow:0 0 0 0 rgba(79,209,197,0);}
+  }
+  .hero h1{
+    font-family:var(--disp);
+    font-weight:700;
+    font-size:clamp(2.6rem, 8vw, 5.2rem);
+    line-height:1.02;
+    letter-spacing:-1px;
+    max-width:11ch;
+  }
+  .hero h1 .accent{color:var(--amber);}
+  .hero-role{
+    margin-top:26px;
+    font-family:var(--mono);
+    font-size:clamp(14px,2vw,17px);
+    color:var(--text-dim);
+    max-width:52ch;
+  }
+  .hero-role b{color:var(--text); font-weight:600;}
+  .hero-cta{
+    margin-top:40px;
+    display:flex;
+    gap:16px;
+    flex-wrap:wrap;
+  }
+  .btn{
+    font-family:var(--mono);
+    font-size:13px;
+    padding:13px 22px;
+    border-radius:var(--radius);
+    border:1px solid var(--line);
+    transition:all .2s ease;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+  }
+  .btn-primary{
+    background:var(--amber);
+    color:var(--bg);
+    border-color:var(--amber);
+    font-weight:600;
+  }
+  .btn-primary:hover{background:#f0b25c;}
+  .btn-ghost{color:var(--text);}
+  .btn-ghost:hover{border-color:var(--teal); color:var(--teal);}
+
+  .scroll-hint{
+    position:absolute;
+    bottom:32px;
+    left:28px;
+    font-family:var(--mono);
+    font-size:11px;
+    color:var(--text-faint);
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .scroll-hint .line{
+    width:28px; height:1px;
+    background:var(--text-faint);
+    animation:extend 2s ease-in-out infinite;
+    transform-origin:left;
+  }
+  @keyframes extend{
+    0%,100%{transform:scaleX(1);}
+    50%{transform:scaleX(0.4);}
+  }
+
+  /* ---------- packet trace divider ---------- */
+  .trace{
+    position:relative;
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding:56px 0 40px;
+    z-index:1;
+  }
+  .trace-line{
+    flex:1;
+    height:1px;
+    background:linear-gradient(90deg, transparent, var(--line) 15%, var(--line) 85%, transparent);
+  }
+  .trace-node{
+    font-family:var(--mono);
+    font-size:11px;
+    color:var(--teal);
+    border:1px solid var(--teal-dim);
+    background:var(--surface);
+    padding:6px 12px;
+    border-radius:20px;
+    white-space:nowrap;
+    letter-spacing:0.5px;
+  }
+  .trace-node::before{
+    content:'';
+    display:inline-block;
+    width:5px; height:5px;
+    border-radius:50%;
+    background:var(--teal);
+    margin-right:7px;
+  }
+
+  section{
+    position:relative;
+    z-index:1;
+    padding-bottom:20px;
+  }
+  .section-head{
+    display:flex;
+    align-items:baseline;
+    gap:14px;
+    margin-bottom:36px;
+  }
+  .section-num{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--amber-dim);
+  }
+  .section-title{
+    font-family:var(--disp);
+    font-weight:600;
+    font-size:clamp(1.6rem,4vw,2.1rem);
+  }
+
+  /* ---------- about ---------- */
+  .about-grid{
+    display:grid;
+    grid-template-columns:1.4fr 1fr;
+    gap:48px;
+    align-items:start;
+  }
+  .about-text p{
+    color:var(--text-dim);
+    font-size:16px;
+    max-width:60ch;
+  }
+  .about-text p + p{margin-top:16px;}
+  .fact-list{
+    display:flex;
+    flex-direction:column;
+    gap:0;
+    border-top:1px solid var(--line);
+  }
+  .fact{
+    display:flex;
+    justify-content:space-between;
+    padding:14px 0;
+    border-bottom:1px solid var(--line);
+    font-size:14px;
+  }
+  .fact dt{color:var(--text-faint); font-family:var(--mono);}
+  .fact dd{color:var(--text); text-align:right;}
+  @media (max-width:760px){
+    .about-grid{grid-template-columns:1fr;}
+  }
+
+  /* ---------- timeline (education) ---------- */
+  .timeline{
+    border-left:1px solid var(--line);
+    margin-left:6px;
+    padding-left:32px;
+    display:flex;
+    flex-direction:column;
+    gap:36px;
+  }
+  .tl-item{position:relative;}
+  .tl-item::before{
+    content:'';
+    position:absolute;
+    left:-37.5px;
+    top:5px;
+    width:9px; height:9px;
+    border-radius:50%;
+    background:var(--bg);
+    border:2px solid var(--teal);
+  }
+  .tl-period{
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--teal);
+    letter-spacing:0.5px;
+  }
+  .tl-title{
+    font-family:var(--disp);
+    font-weight:600;
+    font-size:1.15rem;
+    margin-top:6px;
+  }
+  .tl-sub{
+    color:var(--text-dim);
+    font-size:14px;
+    margin-top:4px;
+  }
+  .tl-score{
+    display:inline-block;
+    margin-top:8px;
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--amber);
+    border:1px solid var(--amber-dim);
+    padding:3px 9px;
+    border-radius:20px;
+  }
+
+  /* ---------- projects ---------- */
+  .card-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+  }
+  .card{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:28px;
+    transition:border-color .25s ease, transform .25s ease;
+  }
+  .card:hover{
+    border-color:var(--teal-dim);
+    transform:translateY(-3px);
+  }
+  .card-date{
+    font-family:var(--mono);
+    font-size:11px;
+    color:var(--text-faint);
+    letter-spacing:0.5px;
+    text-transform:uppercase;
+  }
+  .card h3{
+    font-family:var(--disp);
+    font-size:1.25rem;
+    margin-top:10px;
+    font-weight:600;
+  }
+  .card p{
+    color:var(--text-dim);
+    font-size:14px;
+    margin-top:12px;
+  }
+  .tag-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-top:18px;
+  }
+  .tag{
+    font-family:var(--mono);
+    font-size:11px;
+    color:var(--text-dim);
+    background:var(--surface-2);
+    border:1px solid var(--line);
+    padding:4px 9px;
+    border-radius:3px;
+  }
+  @media (max-width:760px){
+    .card-grid{grid-template-columns:1fr;}
+  }
+
+  /* ---------- achievements (trophy case) ---------- */
+  .trophy-case{
+    display:flex;
+    flex-direction:column;
+    gap:0;
+  }
+  .trophy{
+    display:grid;
+    grid-template-columns:90px 1fr;
+    gap:20px;
+    padding:22px 0;
+    border-bottom:1px solid var(--line);
+    align-items:start;
+  }
+  .trophy:first-child{border-top:1px solid var(--line);}
+  .trophy-flag{
+    font-family:var(--mono);
+    font-size:11px;
+    color:var(--bg);
+    background:var(--amber);
+    padding:4px 8px;
+    border-radius:3px;
+    text-align:center;
+    font-weight:600;
+    height:fit-content;
+  }
+  .trophy-body h3{
+    font-family:var(--disp);
+    font-size:1.05rem;
+    font-weight:600;
+  }
+  .trophy-body p{
+    color:var(--text-dim);
+    font-size:13.5px;
+    margin-top:6px;
+  }
+  .trophy-org{
+    color:var(--text-faint);
+    font-family:var(--mono);
+    font-size:12px;
+    margin-top:4px;
+    display:block;
+  }
+
+  /* ---------- publications note ---------- */
+  .pub-block{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-left:3px solid var(--teal);
+    border-radius:0 var(--radius) var(--radius) 0;
+    padding:24px 28px;
+    margin-top:32px;
+  }
+  .pub-block h4{
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--teal);
+    text-transform:uppercase;
+    letter-spacing:1px;
+    margin-bottom:14px;
+  }
+  .pub-block ul{
+    list-style:none;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+  }
+  .pub-block li{
+    font-size:14px;
+    color:var(--text-dim);
+    padding-left:18px;
+    position:relative;
+  }
+  .pub-block li::before{
+    content:'—';
+    position:absolute;
+    left:0;
+    color:var(--text-faint);
+  }
+
+  /* ---------- skills ---------- */
+  .skill-groups{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:32px;
+  }
+  .skill-group h4{
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--amber);
+    text-transform:uppercase;
+    letter-spacing:1px;
+    margin-bottom:16px;
+  }
+  .pill-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:9px;
+  }
+  .pill{
+    font-family:var(--mono);
+    font-size:12.5px;
+    padding:7px 13px;
+    border:1px solid var(--line);
+    border-radius:20px;
+    color:var(--text);
+    background:var(--surface);
+    transition:border-color .2s ease, color .2s ease;
+  }
+  .pill:hover{border-color:var(--teal); color:var(--teal);}
+  @media (max-width:640px){
+    .skill-groups{grid-template-columns:1fr;}
+  }
+
+  /* ---------- languages ---------- */
+  .lang-row{
+    display:flex;
+    gap:14px;
+    flex-wrap:wrap;
+    margin-top:44px;
+    padding-top:28px;
+    border-top:1px solid var(--line);
+  }
+  .lang-row span{
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--text-faint);
+  }
+
+  /* ---------- contact ---------- */
+  .contact{
+    text-align:left;
+    padding:100px 0 60px;
+  }
+  .contact .section-title{
+    font-size:clamp(2rem,6vw,3.2rem);
+    max-width:14ch;
+  }
+  .contact p{
+    color:var(--text-dim);
+    margin-top:18px;
+    max-width:50ch;
+  }
+  .contact-links{
+    display:flex;
+    flex-direction:column;
+    gap:0;
+    margin-top:40px;
+    border-top:1px solid var(--line);
+  }
+  .contact-link{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px 0;
+    border-bottom:1px solid var(--line);
+    font-family:var(--mono);
+    font-size:15px;
+    transition:color .2s ease, padding-left .2s ease;
+  }
+  .contact-link:hover{
+    color:var(--amber);
+    padding-left:8px;
+  }
+  .contact-link .arrow{color:var(--text-faint); transition:color .2s ease;}
+  .contact-link:hover .arrow{color:var(--amber);}
+
+  footer{
+    text-align:center;
+    padding:30px 0 50px;
+    font-family:var(--mono);
+    font-size:11px;
+    color:var(--text-faint);
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001s !important; animation-iteration-count:1 !important; transition:none !important;}
+  }
+</style>
+</head>
+<body>
+
+<svg class="signal-bg" viewBox="0 0 900 900" preserveAspectRatio="xMidYMin slice">
+  <circle cx="750" cy="140" r="40" fill="none" stroke="#1E4D48" stroke-width="1"/>
+  <circle cx="750" cy="140" r="90" fill="none" stroke="#1E4D48" stroke-width="1"/>
+  <circle cx="750" cy="140" r="150" fill="none" stroke="#183a37" stroke-width="1"/>
+  <circle cx="750" cy="140" r="220" fill="none" stroke="#132d2b" stroke-width="1"/>
+</svg>
+
+<header>
+  <nav>
+    <div class="logo">BM<span>_/wna25009</span></div>
+    <div class="navlinks">
+      <a href="#about">About</a>
+      <a href="#education">Education</a>
+      <a href="#projects">Projects</a>
+      <a href="#achievements">Achievements</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+</header>
+
+<div class="wrap">
+
+  <section class="hero" id="top">
+    <div class="hero-eyebrow"><span class="pulse-dot"></span> Amrita School of Computing · M.Tech WNA</div>
+    <h1>Binod<br>Mandal<span class="accent">.</span></h1>
+    <p class="hero-role">Building at the edge of <b>wireless networks</b>, <b>full-stack development</b>, and <b>cybersecurity</b> — three-time CTF finalist, published researcher, engineer who ships.</p>
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="#contact">Get in touch →</a>
+      <a class="btn btn-ghost" href="#projects">View projects</a>
+    </div>
+    <div class="scroll-hint"><span class="line"></span> SCROLL</div>
+  </section>
+
+  <div class="trace"><div class="trace-line"></div><div class="trace-node">01 · about</div><div class="trace-line"></div></div>
+
+  <section id="about">
+    <div class="section-head"><span class="section-num"></span><span class="section-title">About</span></div>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>I'm a Computer Science and Electrical Engineer currently pursuing my Master's in Wireless Networks &amp; Applications at Amrita School of Computing. I like being on teams where the work is real: learning fast, building things that hold up, and solving problems that don't have a clean textbook answer.</p>
+        <p>Outside coursework, I compete in CTFs, ship full-stack projects end to end, and have co-authored research on applying community-driven technology to sustainability problems.</p>
+      </div>
+      <dl class="fact-list">
+        <div class="fact"><dt>Location</dt><dd>Amritapuri, Kerala, IN</dd></div>
+        <div class="fact"><dt>Phone</dt><dd>+91-6201283313</dd></div>
+        <div class="fact"><dt>Email</dt><dd>binodmandal2514@gmail.com</dd></div>
+        <div class="fact"><dt>Roll No.</dt><dd>AM.EN.P2WNA25009</dd></div>
+        <div class="fact"><dt>Focus</dt><dd>Wireless Networks, AI, CyberSecurity</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <div class="trace"><div class="trace-line"></div><div class="trace-node"> 02 · education</div><div class="trace-line"></div></div>
+
+  <section id="education">
+    <div class="section-head"><span class="section-num"></span><span class="section-title">Education</span></div>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-period">2025 — 2028</div>
+        <div class="tl-title">M.Tech, Wireless Networks &amp; Applications</div>
+        <div class="tl-sub">Amrita School of Computing, Amritapuri</div>
+        <span class="tl-score">8.3 / 10 GPA</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-period">2021 — 2025</div>
+        <div class="tl-title">B.Tech, Computer Science &amp; Engineering</div>
+        <div class="tl-sub">Amrita School of Computing, Chennai</div>
+        <span class="tl-score">6.51 / 10 CGPA</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-period">2018 — 2020</div>
+        <div class="tl-title">Grade 12</div>
+        <div class="tl-sub">Nepal Rastriya Secondary School, Bhawanipur, Bara</div>
+        <span class="tl-score">3.4 / 4</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-period">2017 — 2018</div>
+        <div class="tl-title">Grade 10</div>
+        <div class="tl-sub">Nepal Rastriya Secondary School, Bhawanipur, Bara</div>
+        <span class="tl-score">3.4 / 4</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="trace"><div class="trace-line"></div><div class="trace-node"> 03 · projects</div><div class="trace-line"></div></div>
+
+  <section id="projects">
+    <div class="section-head"><span class="section-num"></span><span class="section-title">Projects</span></div>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-date">June 2022</div>
+        <h3>Utility Billing Management System</h3>
+        <p>A comprehensive billing platform handling electricity, water, gas, and tax invoicing on a monthly cycle. Containerized with Docker for consistent dev and test environments.</p>
+        <div class="tag-row">
+          <span class="tag">React</span><span class="tag">Node.js</span><span class="tag">MongoDB</span><span class="tag">Docker</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-date">March 2022</div>
+        <h3>Bank Management System</h3>
+        <p>A full-featured bank management system built in C++, using file handling with .dat files for persistent account and transaction storage.</p>
+        <div class="tag-row">
+          <span class="tag">C++</span><span class="tag">File I/O</span><span class="tag">DSA</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="pub-block">
+      <h4>Research &amp; Publications — Live-in-Labs, June 2024</h4>
+      <ul>
+        <li>Empowering rural communities for sustainable waste management through a community-driven approach.</li>
+        <li>Smart water management: leveraging community-driven technology to strengthen resilience in Krishnappa Nagara, Karnataka.</li>
+        <li>AI for predicting solar flares and studying their effect on Earth's temperature.</li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="trace"><div class="trace-line"></div><div class="trace-node"> 04 · achievements</div><div class="trace-line"></div></div>
+
+  <section id="achievements">
+    <div class="section-head"><span class="section-num"></span><span class="section-title">Achievements</span></div>
+    <div class="trophy-case">
+      <div class="trophy">
+        <div class="trophy-flag">WINNER</div>
+        <div class="trophy-body">
+          <h3>Scavenger Hunt</h3>
+          <p>Won the campus-wide Scavenger Hunt held during Amrita Cybernation, Amrita Chennai's annual tech fest.</p>
+          <span class="trophy-org">Oct 2022 · Amrita Chennai</span>
+        </div>
+      </div>
+      <div class="trophy">
+        <div class="trophy-flag">RUNNER-UP</div>
+        <div class="trophy-body">
+          <h3>CEPHEUS-23 CTF</h3>
+          <p>Secured 2nd Runner-Up in the Capture the Flag competition organized by CEPHEUS at IIT Goa.</p>
+          <span class="trophy-org">Feb 2023 · IIT Goa</span>
+        </div>
+      </div>
+      <div class="trophy">
+        <div class="trophy-flag">WINNER</div>
+        <div class="trophy-body">
+          <h3>CyberHunt CTF — CyberNexa'24</h3>
+          <p>Won the CyberHunt CTF event as part of CyberNexa'24, organized by Chaitanya Bharathi Institute of Technology.</p>
+          <span class="trophy-org">Mar 2024 · CBIT</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="trace"><div class="trace-line"></div><div class="trace-node"> 05 · skills</div><div class="trace-line"></div></div>
+
+  <section id="skills">
+    <div class="section-head"><span class="section-num"></span><span class="section-title">Skills &amp; Interests</span></div>
+    <div class="skill-groups">
+      <div class="skill-group">
+        <h4>Programming</h4>
+        <div class="pill-row">
+          <span class="pill">C</span><span class="pill">C++</span><span class="pill">Python</span>
+          <span class="pill">HTML/CSS</span><span class="pill">JavaScript</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h4>Tools</h4>
+        <div class="pill-row">
+          <span class="pill">Cisco Packet Tracer</span><span class="pill">Wireshark</span>
+          <span class="pill">GitHub</span><span class="pill">Figma</span><span class="pill">AI Tools</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h4>Coursework</h4>
+        <div class="pill-row">
+          <span class="pill">Data Structures &amp; Algorithms</span><span class="pill">Operating Systems</span>
+          <span class="pill">OOPs</span><span class="pill">DBMS</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h4>Areas of Interest</h4>
+        <div class="pill-row">
+          <span class="pill">Wireless Networks</span><span class="pill">Nanotechnology</span>
+          <span class="pill">AI / ML</span><span class="pill">Full Stack Dev</span><span class="pill">CyberSecurity (CTF)</span>
+        </div>
+      </div>
+    </div>
+    <div class="lang-row">
+      <span>LANGUAGES —</span>
+      <span class="pill">Hindi</span><span class="pill">English</span><span class="pill">Bhojpuri</span><span class="pill">Nepali</span>
+    </div>
+  </section>
+
+  <section class="contact" id="contact">
+    <span class="section-num"></span>
+    <div class="section-title">Let's build<br>something<span style="color:var(--amber)">.</span></div>
+    <p>Open to full-stack roles, research collaborations, and anything wireless-networks or CTF related. Reach out — I usually reply within a day.</p>
+    <div class="contact-links">
+      <a class="contact-link" href="mailto:binodmandal2514@gmail.com">Email <span class="arrow">→</span></a>
+      <a class="contact-link" href="tel:+916201283313">Phone <span class="arrow">→</span></a>
+      <a class="contact-link" href="https://binodmandal.github.io" target="_blank" rel="noopener">GitHub <span class="arrow">→</span></a>
+      <a class="contact-link" href="https://linkedin.com/in/binodmandal" target="_blank" rel="noopener">LinkedIn <span class="arrow">→</span></a>
+    </div>
+  </section>
+
+  <footer>© 2026 Binod Mandal · Built &amp; hosted with care</footer>
+</div>
+
+</body>
+</html>
